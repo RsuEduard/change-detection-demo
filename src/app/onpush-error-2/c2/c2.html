@@ -1,0 +1,6 @@
+<h3>C2 (OnPush)</h3>
+<p>person.name input: {{ person().name }}</p>
+<!-- An event inside C2 marks it dirty, revealing the already-mutated value. -->
+<button type="button" class="btn btn-secondary" (click)="clicks = clicks + 1">
+  Local click ({{ clicks }})
+</button>

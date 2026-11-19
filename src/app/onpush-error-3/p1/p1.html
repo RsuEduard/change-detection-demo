@@ -1,0 +1,9 @@
+<h2>P1 (OnPush)</h2>
+<p>prop1: {{ prop1 }}</p>
+<p>nameService.name: {{ nameService.name }}</p>
+<button type="button" class="btn" (click)="update()">Update prop1 and nameService.name</button>
+<div class="children">
+  <app-c1 [value]="prop1" />
+  <app-c2 />
+  <app-c3 />
+</div>

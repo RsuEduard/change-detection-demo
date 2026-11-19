@@ -1,0 +1,32 @@
+<app-p1-error2 />
+
+<label class="fix-toggle">
+  <input #toggle type="checkbox" [checked]="showFix" (change)="showFix = toggle.checked" />
+  Show what went wrong and the fix
+</label>
+
+@if (showFix) {
+  <div class="description">
+    <h3>What went wrong</h3>
+    <p>
+      P1 mutates <code>prop2.name</code>. The object passed to C2 is still the same reference, so
+      Angular sees no input change and does not mark C2 dirty. C2 is skipped and keeps the old name,
+      even though P1 shows the new one. C1 updates because its string input changed.
+    </p>
+    <pre class="code-snippet"><code>{{ brokenCode }}</code></pre>
+  </div>
+
+  <div class="fixed-section">
+    <app-p1-error2-fixed />
+
+    <div class="description">
+      <h3>The fix</h3>
+      <p>
+        P1 creates a new object instead of mutating it:
+        <code>prop2 = {{ '{' }} ...prop2, name {{ '}' }}</code
+        >. A new reference counts as an input change, which marks C2 dirty and refreshes it.
+      </p>
+      <pre class="code-snippet"><code>{{ fixedCode }}</code></pre>
+    </div>
+  </div>
+}

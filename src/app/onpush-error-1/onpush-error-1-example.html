@@ -1,0 +1,34 @@
+<app-p1-error1 />
+
+<label class="fix-toggle">
+  <input #toggle type="checkbox" [checked]="showFix" (change)="showFix = toggle.checked" />
+  Show what went wrong and the fix
+</label>
+
+@if (showFix) {
+  <div class="description">
+    <h3>What went wrong</h3>
+    <p>
+      C1 is OnPush and assigns <code>data</code> inside an HTTP <code>subscribe</code>. When the
+      response arrives, Zone.js triggers change detection, but Zone.js never marks components dirty.
+      Nothing marked C1, so it is skipped and keeps showing "loading...". The Eager C2 is checked on
+      every tick, so it updates. Clicking C1 again reveals the previous response, because the click
+      marks C1 dirty.
+    </p>
+    <pre class="code-snippet"><code>{{ brokenCode }}</code></pre>
+  </div>
+
+  <div class="fixed-section">
+    <app-p1-error1-fixed />
+
+    <div class="description">
+      <h3>The fix</h3>
+      <p>
+        After assigning the response, C1 calls <code>ChangeDetectorRef.markForCheck()</code>. This
+        marks C1 and its ancestors dirty, so the check triggered by Zone.js refreshes it. Using the
+        <code>async</code> pipe would do the same for you.
+      </p>
+      <pre class="code-snippet"><code>{{ fixedCode }}</code></pre>
+    </div>
+  </div>
+}

@@ -1,0 +1,32 @@
+<app-p1-error3 />
+
+<label class="fix-toggle">
+  <input #toggle type="checkbox" [checked]="showFix" (change)="showFix = toggle.checked" />
+  Show what went wrong and the fix
+</label>
+
+@if (showFix) {
+  <div class="description">
+    <h3>What went wrong</h3>
+    <p>
+      C2 reads <code>name</code> directly from a shared service. P1 updates the service, but C2 has
+      no input that changed and no event happened inside it, so nothing marks it dirty. C2 is
+      skipped and keeps the old name.
+    </p>
+    <pre class="code-snippet"><code>{{ brokenCode }}</code></pre>
+  </div>
+
+  <div class="fixed-section">
+    <app-p1-error3-fixed />
+
+    <div class="description">
+      <h3>The fix</h3>
+      <p>
+        The service exposes the name as an Observable backed by a <code>BehaviorSubject</code>. C2
+        renders it with the <code>async</code> pipe, which calls <code>markForCheck()</code> on
+        every new value, so C2 is refreshed.
+      </p>
+      <pre class="code-snippet"><code>{{ fixedCode }}</code></pre>
+    </div>
+  </div>
+}

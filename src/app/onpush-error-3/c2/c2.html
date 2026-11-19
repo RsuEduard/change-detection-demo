@@ -1,0 +1,6 @@
+<h3>C2 (OnPush)</h3>
+<p>nameService.name: {{ nameService.name }}</p>
+<!-- An event inside C2 marks it dirty, revealing the already-updated value. -->
+<button type="button" class="btn btn-secondary" (click)="clicks = clicks + 1">
+  Local click ({{ clicks }})
+</button>
